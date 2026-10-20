@@ -1,0 +1,20 @@
+'use client';
+
+import { createClient } from '@supabase/supabase-js';
+
+const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+
+if (!url || !key) {
+  throw new Error(
+    'Missing NEXT_PUBLIC_SUPABASE_URL or NEXT_PUBLIC_SUPABASE_ANON_KEY. Create apps/web/.env.local (see .env.local.example) and restart npm run dev.'
+  );
+}
+
+export const supabase = createClient(url, key, {
+  auth: {
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true,
+  },
+});

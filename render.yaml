@@ -1,0 +1,28 @@
+# Render "Blueprint": deploys the API. Create it with  New + -> Blueprint  and pick this repository.
+# The free plan sleeps after inactivity (first request after a pause is slow). Re-check Render's current free-plan terms.
+services:
+  - type: web
+    name: uniguide-api
+    runtime: node
+    plan: free
+    rootDir: services/api
+    buildCommand: npm install --include=dev && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: TRUST_PROXY
+        value: "1"
+      - key: CORS_ORIGIN
+        sync: false        # your website address, e.g. https://uniguide-gabes.vercel.app
+      - key: DATABASE_URL
+        sync: false        # Supabase "Session pooler" connection string
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_JWKS_URL
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        sync: false

@@ -1,0 +1,19 @@
+{
+  "name": "uniguide-gabes",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "setup": "node scripts/ensure-deps.mjs && echo Packages are installed.",
+    "dev:api": "node scripts/ensure-deps.mjs api && npm run dev --prefix services/api",
+    "dev:web": "node scripts/ensure-deps.mjs web && npm run dev --prefix apps/web",
+    "dev": "node scripts/ensure-deps.mjs && concurrently -n api,web -c blue,green \"npm:dev:api\" \"npm:dev:web\"",
+    "make-admin": "node scripts/ensure-deps.mjs api && npm run make-admin --prefix services/api --",
+    "doctor": "node scripts/ensure-deps.mjs api && npm run doctor --prefix services/api",
+    "set-password": "node scripts/ensure-deps.mjs api && npm run set-password --prefix services/api --",
+    "configure": "node scripts/configure.mjs",
+    "test-email": "node scripts/ensure-deps.mjs api && npm run test-email --prefix services/api --"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0"
+  }
+}
